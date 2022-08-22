@@ -1,22 +1,17 @@
 <template>
   <div id="app">
-    <!-- template部でコンポーネントをHTMLタグとして記述 -->
     <NavigationBar />
-    <MainPage />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-//script部でコンポーネントの読み込み
 import NavigationBar from '@/components/NavigationBar.vue'
-import MainPage from '@/components/MainPage.vue'
 
 export default {
   name: 'App',
-  //script部で使用するコンポーネントの宣言
   components: {
-    NavigationBar,
-    MainPage
+    NavigationBar
   }
 }
 </script>
