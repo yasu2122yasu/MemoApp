@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <div class="left-menu">
-      <NoteItem v-for="note in noteList" v-bind:note="note" v-bind:key="note.id" />
+      <NoteItem v-for="note in noteList" v-bind:note="note" v-bind:key="note.id" @delete="onDeleteNote" />
 
       <button class="transparent" @click="onClickButtonAdd">
         <i class="fas fa-plus-square"></i>ノートを追加
@@ -29,6 +29,10 @@ export default {
         name: `新規ノート`,
         mouseover: false,
       })
+    },
+    onDeleteNote: function (deleteNote) {
+      const index = this.noteList.indexOf(deleteNote);
+      this.noteList.splice(index, 1);
     },
   },
   components: {
