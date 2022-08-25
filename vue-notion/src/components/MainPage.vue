@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <div class="left-menu" @click.self="onEditNoteEnd()">
-      <NoteItem v-for="note in noteList" v-bind:note="note" v-bind:key="note.id" @delete="onDeleteNote"
+      <NoteItem v-for="note in noteList" v-bind:note="note" v-bind:layer="1" v-bind:key="note.id" @delete="onDeleteNote"
         @editStart="onEditNoteStart" @editEnd="onEditNoteEnd" @addChild="onAddChildNote" />
       <button class="transparent" @click="onClickButtonAdd">
         <i class="fas fa-plus-square"></i>ノートを追加
@@ -37,14 +37,18 @@ export default {
       const index = targetList.indexOf(note);
       targetList.splice(index, 1);
     },
-    onEditNoteStart: function (editNote) {
-      for (let note of this.noteList) {
+    onEditNoteStart: function (editNote, parentNote) {
+      const targetList = parentNote == null ? this.noteList : parentNote.children;
+      for (let note of targetList) {
         note.editing = (note.id === editNote.id);
+        this.onEditNoteStart(editNote, note);
       }
     },
-    onEditNoteEnd: function () {
-      for (let note of this.noteList) {
+    onEditNoteEnd: function (parentNote) {
+      const targetList = parentNote == null ? this.noteList : parentNote.children;
+      for (let note of targetList) {
         note.editing = false;
+        this.onEditNoteEnd(note);
       }
     },
     onAddChildNote: function (note) {
