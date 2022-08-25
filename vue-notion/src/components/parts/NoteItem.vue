@@ -20,15 +20,16 @@
           <div class="button-icon" @click="onClickEdit(note)">
             <i class="fas fa-edit"></i>
           </div>
-          <div class="button-icon" @click="onClickDelete(note)">
+          <div class="button-icon" @click="onClickDelete(parentNote, note)">
             <i class="fas fa-trash"></i>
           </div>
         </div>
       </template>
     </div>
     <div class="child-note">
-      <NoteItem v-for="childNote in note.children" v-bind:note="childNote" v-bind:key="childNote.id"
-        @delete="onClickDelete" @editStart="onClickEdit" @editEnd="onEditEnd" @addChild="onClickChildNote" />
+      <NoteItem v-for="childNote in note.children" v-bind:note="childNote" v-bind:parentNote="note"
+        v-bind:key="childNote.id" @delete="onClickDelete" @editStart="onClickEdit" @editEnd="onEditEnd"
+        @addChild="onClickChildNote" />
     </div>
   </div>
 </template>
@@ -38,6 +39,7 @@ export default {
   name: 'NoteItem',
   props: [
     'note',
+    'parentNote',
   ],
   methods: {
     onMouseOver: function () {
