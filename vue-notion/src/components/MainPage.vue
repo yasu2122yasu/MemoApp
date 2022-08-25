@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <div class="left-menu" @click.self="onEditNoteEnd()">
-      <NoteItem v-for="note in noteList" v-bind:note="note" v-bind:key="note.id" @delete="onDeleteNote"
+      <NoteItem v-for="note in noteList" v-bind:note="note" v-bind:layer="1" v-bind:key="note.id" @delete="onDeleteNote"
         @editStart="onEditNoteStart" @editEnd="onEditNoteEnd" @addChild="onAddChildNote" />
       <button class="transparent" @click="onClickButtonAdd">
         <i class="fas fa-plus-square"></i>ノートを追加
