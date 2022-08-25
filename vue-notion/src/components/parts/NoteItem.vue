@@ -11,7 +11,7 @@
         </div>
         <div class="note-name">{{ note.name }}</div>
         <div v-show="note.mouseover" class="buttons">
-          <div class="button-icon" @click="onClickChildNote(note)">
+          <div class="button-icon" v-if="layer < 3" @click="onClickChildNote(note)">
             <i class="fas fa-sitemap"></i>
           </div>
           <div class="button-icon">
@@ -27,9 +27,9 @@
       </template>
     </div>
     <div class="child-note">
-      <NoteItem v-for="childNote in note.children" v-bind:note="childNote" v-bind:parentNote="note"
-        v-bind:key="childNote.id" @delete="onClickDelete" @editStart="onClickEdit" @editEnd="onEditEnd"
-        @addChild="onClickChildNote" />
+      <NoteItem v-for="childNote in note.children" v-bind:note="childNote" v-bind:layer="layer + 1"
+        v-bind:parentNote="note" v-bind:key="childNote.id" @delete="onClickDelete" @editStart="onClickEdit"
+        @editEnd="onEditEnd" @addChild="onClickChildNote" />
     </div>
   </div>
 </template>
@@ -40,6 +40,7 @@ export default {
   props: [
     'note',
     'parentNote',
+    'layer',
   ],
   methods: {
     onMouseOver: function () {
