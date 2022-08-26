@@ -27,14 +27,18 @@
       </template>
     </div>
     <div class="child-note">
-      <NoteItem v-for="childNote in note.children" v-bind:note="childNote" v-bind:layer="layer + 1"
-        v-bind:parentNote="note" v-bind:key="childNote.id" @delete="onClickDelete" @editStart="onClickEdit"
-        @editEnd="onEditEnd" @addChild="onClickChildNote" @addNoteAfter="onClickAddNoteAfter" />
+      <draggable v-bind:list="note.children" group="notes">
+        <NoteItem v-for="childNote in note.children" v-bind:note="childNote" v-bind:layer="layer + 1"
+          v-bind:parentNote="note" v-bind:key="childNote.id" @delete="onClickDelete" @editStart="onClickEdit"
+          @editEnd="onEditEnd" @addChild="onClickChildNote" @addNoteAfter="onClickAddNoteAfter" />
+      </draggable>
     </div>
   </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable'
+
 export default {
   name: 'NoteItem',
   props: [
@@ -64,6 +68,9 @@ export default {
     onClickAddNoteAfter: function (parentNote, note) {
       this.$emit('addNoteAfter', parentNote, note);
     },
+  },
+  components: {
+    draggable,
   },
 }
 </script>
