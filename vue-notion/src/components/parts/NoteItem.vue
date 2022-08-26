@@ -1,7 +1,7 @@
 <template>
   <div class="note-family">
-    <div class="note" @mouseover="onMouseOver" @mouseleave="onMouseLeave"
-      v-bind:class="{ mouseover: note.mouseover && !note.editing }">
+    <div class="note" @mouseover="onMouseOver" @mouseleave="onMouseLeave" @click="onSelect(note)"
+      v-bind:class="{ mouseover: note.mouseover && !note.editing, selected: note.selected }">
       <template v-if="note.editing">
         <input v-model="note.name" class="transparent" @keypress.enter="onEditEnd" />
       </template>
@@ -29,8 +29,9 @@
     <div class="child-note">
       <draggable v-bind:list="note.children" group="notes">
         <NoteItem v-for="childNote in note.children" v-bind:note="childNote" v-bind:layer="layer + 1"
-          v-bind:parentNote="note" v-bind:key="childNote.id" @delete="onClickDelete" @editStart="onClickEdit"
-          @editEnd="onEditEnd" @addChild="onClickChildNote" @addNoteAfter="onClickAddNoteAfter" />
+          v-bind:parentNote="note" v-bind:key="childNote.id" @delete="onClickDelete" @select="onSelect"
+          @editStart="onClickEdit" @editEnd="onEditEnd" @addChild="onClickChildNote"
+          @addNoteAfter="onClickAddNoteAfter" />
       </draggable>
     </div>
   </div>
@@ -52,6 +53,9 @@ export default {
     },
     onMouseLeave: function () {
       this.note.mouseover = false;
+    },
+    onSelect: function (note) {
+      this.$emit('select', note);
     },
     onClickDelete: function (note) {
       this.$emit('delete', note);
@@ -86,6 +90,12 @@ export default {
   &.mouseover {
     background-color: rgb(232, 231, 228);
     cursor: pointer;
+  }
+
+  &.selected {
+    color: black;
+    background-color: rgb(232, 231, 228);
+    font-weight: 600;
   }
 
   .note-icon {
