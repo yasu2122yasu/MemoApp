@@ -25,7 +25,7 @@
             <i class="fas fa-user-graduate"></i> 学習用ページ
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/study/binding">学習1</a></li>
+            <li><a class="dropdown-item" href="/study/binding">学習5</a></li>
             <li><a class="dropdown-item" href="/study/directive">学習2</a></li>
             <li><a class="dropdown-item" href="/study/event">学習3</a></li>
           </ul>
