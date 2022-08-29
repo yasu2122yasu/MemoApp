@@ -122,4 +122,8 @@ export default {
     padding-left: 10px;
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> afe0d63a2b9bdf2ceb2aef708d9049962138c581

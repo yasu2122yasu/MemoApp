@@ -44,4 +44,8 @@ export default {
 .navigation-bar {
   height: 60px;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> afe0d63a2b9bdf2ceb2aef708d9049962138c581
